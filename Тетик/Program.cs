@@ -1,18 +1,17 @@
-﻿using System;
+using System;
 using System.Timers;
 using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json;
-using Тетик;
 
-namespace Тестик
+namespace testic
 {
     internal class Program
     {
 
+        
 
-
-
-
+            
+        
         static void Main()
         {
             string text = "Сегодняшний день начался с утренней пробежки по парку, где встретил много знакомых лиц. Погода была прохладной, но солнечной, и это добавило мне энергии" +
@@ -22,7 +21,7 @@ namespace Тестик
             int mistakes = 0;
             int count = 0;
             int len = 0;
-            DateTime end = DateTime.Now.AddMinutes(1);
+            int time = 59;
             int pos = 0;
             int pos2 = 0;
             List<Records> chel = new List<Records>();
@@ -31,7 +30,7 @@ namespace Тестик
             Console.WriteLine("Добро пожаловать в тест на скорость печатания: 'Быстрые пальчики залог успеха'. " +
                 "\nПеред началом теста введите свое имя (либо ник) для таблицы лидеров.");
             string name = Console.ReadLine();
-
+           
             Console.WriteLine("Нажмите Enter для начала теста. " +
                 "После того как вы нажмете Enter таймер сразу запуститься!!!");
             ConsoleKeyInfo key = Console.ReadKey();
@@ -40,10 +39,10 @@ namespace Тестик
                 Console.Clear();
                 Thread txt = new Thread(_ =>
                 {
-                    while (DateTime.Now < end)
+                    while (time > 0)
                     {
                         Console.SetCursorPosition(0, 16);
-                        Console.WriteLine("00:{00:ss} ", end - DateTime.Now);
+                        Console.WriteLine("00:" + time--);
                         Console.ResetColor();
 
 
@@ -61,7 +60,7 @@ namespace Тестик
 
                 txt.Start();
 
-                while (len < text.Length && DateTime.Now < end)
+                while (len < text.Length && time > 0)
                 {
 
                     char c = Console.ReadKey(true).KeyChar;
@@ -97,7 +96,7 @@ namespace Тестик
             Console.Clear();
             Console.ResetColor();
             Console.WriteLine("Поздравляем вы закончили тест.");
-            Console.WriteLine("Ваше имя(ник): " + name);
+            Console.WriteLine("Ваше имя(ник): " +  name);
             Console.WriteLine("Ваша скорость печати: " + len + " сим/мин");
             Records newchel = new Records();
             newchel.name = name;
@@ -108,7 +107,7 @@ namespace Тестик
             File.WriteAllText("D:\\CHEL.json", json);
             Console.WriteLine("Нажмите Enter, чтобы продолжить.");
             Console.ReadLine();
-
+            
 
             Console.Clear();
 
